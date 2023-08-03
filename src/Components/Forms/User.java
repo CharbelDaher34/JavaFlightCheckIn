@@ -461,6 +461,7 @@ public class User extends javax.swing.JFrame {
             }
             String outputPath = "C:" + File.separator + "Users" + File.separator + "user"
                     + File.separator + "Desktop" + File.separator + "AntProject"
+                    + File.separator + "Invoices"
                     + File.separator + client.getFirstName() + ".pdf";
             Helper.createPDF(outputPath, textArea.getText());
 
