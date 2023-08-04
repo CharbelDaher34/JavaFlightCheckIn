@@ -149,9 +149,10 @@ public class Login extends javax.swing.JFrame {
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
         client = new Client();
         CheckExistence CheckExistenceFrm = new CheckExistence();
-
+        Helper.clearForm(this.getContentPane());
+        dispose();
         CheckExistenceFrm.show();
-        dispose();// TODO add your handling code here:
+
     }//GEN-LAST:event_BackActionPerformed
 
     private void emailAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailAddressActionPerformed
