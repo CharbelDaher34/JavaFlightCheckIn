@@ -32,7 +32,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.file.Paths;
 import javax.swing.text.JTextComponent;
+
 /**
  *
  * @author user
@@ -77,23 +79,23 @@ public class Helper {
 
     //given this.getContentPane() as argument, it clears the components of the form
     public static void clearForm(Container container) {
-    for (Component component : container.getComponents()) {
-        if (component instanceof JTextComponent) {
-            ((JTextComponent) component).setText("");
-        } else if (component instanceof JComboBox) {
-            JComboBox<?> comboBox = (JComboBox<?>) component;
-            if (comboBox.getItemCount() > 0) {
-                comboBox.setSelectedIndex(0);
+        for (Component component : container.getComponents()) {
+            if (component instanceof JTextComponent) {
+                ((JTextComponent) component).setText("");
+            } else if (component instanceof JComboBox) {
+                JComboBox<?> comboBox = (JComboBox<?>) component;
+                if (comboBox.getItemCount() > 0) {
+                    comboBox.setSelectedIndex(0);
+                }
+            } else if (component instanceof JCheckBox) {
+                ((JCheckBox) component).setSelected(false);
+            } else if (component instanceof JRadioButton) {
+                ((JRadioButton) component).setSelected(false);
+            } else if (component instanceof Container) {
+                clearForm((Container) component);
             }
-        } else if (component instanceof JCheckBox) {
-            ((JCheckBox) component).setSelected(false);
-        } else if (component instanceof JRadioButton) {
-            ((JRadioButton) component).setSelected(false);
-        } else if (component instanceof Container) {
-            clearForm((Container) component);
         }
     }
-}
 
 //    public static void clearForm(Container container) {
 //        for (Component component : container.getComponents()) {
@@ -110,7 +112,6 @@ public class Helper {
 //            }
 //        }
 //    }
-
     public static void storeExistingReservedSeats() {
         try {
             String query = "SELECT seatNo FROM reservation WHERE client_id = ?;";
@@ -190,11 +191,9 @@ public class Helper {
 
         return false; // No empty fields
     }
-public static void createPDF(String outputPath, String content) {
-        //String outputPath = "C:" + File.separator + "Users" + File.separator + "user" +
-        //              File.separator + "Desktop" + File.separator + "AntProject" +
-        //          File.separator + client.getFirstName() + ".pdf";
-        //  Helper.createPDF(outputPath, textArea.getText());
+
+    public static void createPDF(String outputPath, String content) {
+
         String FILE_NAME = outputPath;
         Document document = new Document();
         try {
@@ -205,6 +204,24 @@ public static void createPDF(String outputPath, String content) {
             document.add(p);
             document.close();
             JOptionPane.showMessageDialog(null, "pdf createed", "Seat Information", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createPDFRel(String relativePath, String content) {
+        String projectPath = System.getProperty("user.dir");
+        String fullPath = Paths.get(projectPath, relativePath).toString();
+
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(new File(fullPath)));
+            document.open();
+            Paragraph p = new Paragraph();
+            p.add(content);
+            document.add(p);
+            document.close();
+            JOptionPane.showMessageDialog(null, "PDF created", "Seat Information", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             e.printStackTrace();
         }

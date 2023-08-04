@@ -350,7 +350,7 @@ public class User extends javax.swing.JFrame {
         } catch (Exception e) {
 
         }
-       // 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
+        // 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
         pendingSeats.add(reservedSeat);
         try {
             Seat seat = new Seat();
@@ -464,7 +464,9 @@ public class User extends javax.swing.JFrame {
                     + File.separator + "Desktop" + File.separator + "AntProject"
                     + File.separator + "Invoices"
                     + File.separator + client.getFirstName() + ".pdf";
-            Helper.createPDF(outputPath, textArea.getText());
+            String relPath = "Invoices" + File.separator + client.getFirstName() + ".pdf";
+
+            Helper.createPDFRel(relPath, textArea.getText());
 
             JOptionPane.showMessageDialog(null, "Those seats are entered successfuly to the DB:\n" + batata, "Seat Information", JOptionPane.INFORMATION_MESSAGE);
             seatsList = new Vector<>();
@@ -521,8 +523,8 @@ public class User extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "No matching rows found for deletion.");
             }
-           fillComboBox();
-           updateDb();
+            fillComboBox();
+            updateDb();
         } catch (SQLException ex) {
             ex.printStackTrace();
             // Handle the SQLException appropriately, such as showing an error message to the user.
