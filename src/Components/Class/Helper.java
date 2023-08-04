@@ -33,6 +33,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.text.JTextComponent;
 
 /**
@@ -66,6 +68,7 @@ public class Helper {
         return connection;
     }
 
+ 
     public static void closeConnection() {
         if (connection != null) {
             try {
